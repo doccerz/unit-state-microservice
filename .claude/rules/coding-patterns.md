@@ -1,7 +1,7 @@
 # Coding Patterns
 
 - Use ESM (`import`/`export`) — package.json has `"type": "module"`
-- Fastify app is built via `buildApp(opts = {})` factory in `src/app.js` (not instantiated directly)
+- Fastify app is built via `buildApp(opts = {}, envData = null)` factory in `src/app.js` — pass `envData` object in tests to inject env vars without touching `process.env`
 - All plugins registered inside `buildApp` or as decorated Fastify plugins
 - Keep `src/server.js` thin — only calls `buildApp()` and `app.listen()`
 - UUID primary keys for all units
