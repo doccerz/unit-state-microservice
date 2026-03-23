@@ -8,4 +8,5 @@
 - Always `await app.close()` after each test to release resources
 - Env injection in tests: `buildApp({ logger: false }, { DATABASE_URL: 'postgres://localhost/test' })` — call `await app.ready()` to trigger plugin init
 - Swagger UI redirect: `GET /docs` returns 301/302 — assert `[200, 301, 302]` not just 200
+- Fastify Ajv default: `removeAdditional: true` — extra body properties are stripped silently (200), not rejected (400). Test for removal, not rejection.
 

@@ -48,8 +48,8 @@ Each task gets its own branch from `main`, following the strict git-workflow rul
 - [x] Register `@fastify/swagger` + `@fastify/swagger-ui` in app (served at `/docs`)
 
 ### Task 1.4 — Schema Validation
-- [ ] **Branch:** `feat/task-1.4-schema-validation`
-- [ ] Create `src/schemas/unit.schema.js` — Fastify JSON schemas:
+- [x] **Branch:** `feat/task-1.4-schema-validation`
+- [x] Create `src/schemas/unit.schema.js` — Fastify JSON schemas:
   - `createUnitBody` — `{ id?: UUID, metadata?: object }` (or array for batch)
   - `patchUnitBody` — `{ status?: boolean, metadata?: object }`
   - `unitParams` — `{ id: UUID }`
