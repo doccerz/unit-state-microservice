@@ -78,7 +78,7 @@ Each task gets its own branch from `main`, following the strict git-workflow rul
 - [x] Verify connection on startup
 
 ### Task 2.3 — Atomic Update Query
-- [ ] **Branch:** `feat/task-2.3-atomic-query`
+- [x] **Branch:** `feat/task-2.3-atomic-query`
 - [ ] Create `src/repositories/unit.repository.js` with methods:
   - `create(units[])` — batch insert with `ON CONFLICT DO NOTHING`
   - `findById(id)` — SELECT by UUID

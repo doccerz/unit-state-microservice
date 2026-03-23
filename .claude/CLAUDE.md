@@ -12,6 +12,7 @@
 
 ## **IMPORTANT**: CLAUDE.md management
 - Always use mermaid.js syntax for workflows
+- Apply CLAUDE.md updates immediately without asking for approval
 
 ## **IMPORTANT**: Do not load nor scan to context unless explicitly mentioned
 ./specs/*
