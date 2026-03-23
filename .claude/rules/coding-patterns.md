@@ -9,8 +9,9 @@
 - Swagger config exported from `src/docs/openapi.js` as `swaggerConfig`
 - OpenAPI JSON served at `GET /docs/json`; UI at `GET /docs` (redirects to `/docs/`)
 - `pg` is available as a transitive dep of `@fastify/postgres` — use it directly in scripts that run outside Fastify (e.g. `scripts/migrate.js`)
-- `fastify-plugin` is a transitive dep (via `@fastify/postgres`) — use `fp(plugin)` to wrap custom plugins that need their decorations visible at root scope (e.g. `src/plugins/db.js`)
-- Plugin order in `src/app.js`: swagger → swaggerUi → env → db → routes
+- `fastify-plugin` is a transitive dep (via `@fastify/postgres`) — use `fp(plugin)` to break encapsulation: needed for decorations AND for `setErrorHandler` to cover sibling plugins (e.g. `src/plugins/db.js`, `src/plugins/error-handler.js`)
+- Plugin order in `src/app.js`: swagger → swaggerUi → env → db → errorHandler → routes
+- Error handler plugin: must wrap with `fp()` — without it, `setErrorHandler` only covers the plugin's own scope, not sibling route plugins
 - Repository pattern: `createUnitRepository(pg, schema)` factory in `src/repositories/unit.repository.js` — pass `app.pg` and `app.config.DATABASE_SCHEMA` at call site
 - Batch INSERT params: build `($1,$2),($3,$4),...` dynamically; each unit uses 2 slots (id, metadata)
 - `metadata` param: pass `JSON.stringify(metadata)` when not null — pg driver does not auto-serialize nested objects from JSONB columns in parameterized queries
