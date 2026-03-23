@@ -105,12 +105,12 @@ Each task gets its own branch from `main`, following the strict git-workflow rul
 - [x] Wire schemas from Task 1.4
 
 ### Task 3.2 — State Control Routes
-- [ ] **Branch:** `feat/task-3.2-state-control`
-- [ ] Write failing tests first
-- [ ] Add to `src/routes/units.js`:
+- [x] **Branch:** `feat/task-3.2-state-control`
+- [x] Write failing tests first
+- [x] Add to `src/routes/units.js`:
   - `PATCH /units/:id` — explicit status/metadata update; 409 if already in target state
   - `POST /units/:id/toggle` — invert boolean; 404 if not found
-- [ ] Wire atomic query from Task 2.3
+- [x] Wire atomic query from Task 2.3
 
 ### Task 3.3 — Conflict Management
 - [ ] **Branch:** `feat/task-3.3-conflict-management`
