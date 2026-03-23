@@ -128,15 +128,15 @@ Each task gets its own branch from `main`, following the strict git-workflow rul
 - [x] Validate all routes appear with request/response schemas
 
 ### Task 4.2 — Concurrency Integration Tests
-- [ ] **Branch:** `feat/task-4.2-concurrency-tests`
-- [ ] Simultaneous `PATCH` requests for same unit
-- [ ] Assert only one 200 and others 409
-- [ ] Verify no data corruption
+- [x] **Branch:** `feat/task-4.2-concurrency-tests`
+- [x] Simultaneous `PATCH` requests for same unit
+- [x] Assert only one 200 and others 409
+- [x] Verify no data corruption
 
 ### Task 4.3 — Health Endpoint
-- [ ] **Branch:** `feat/task-4.3-health`
-- [ ] Write failing test first
-- [ ] `GET /health` — queries DB (`SELECT 1`) and returns `{ status: "ok" }` or 503
+- [x] **Branch:** `feat/task-4.3-health`
+- [x] Write failing test first
+- [x] `GET /health` — queries DB (`SELECT 1`) and returns `{ status: "ok" }` or 503
 
 ---
 
