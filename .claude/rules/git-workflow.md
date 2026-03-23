@@ -45,3 +45,7 @@ graph TD
 ```
 
 **Violations**: Skipping the test-first step, reusing another task's branch, writing all code without intermediate commits, skipping the task status update, or pushing directly to main are NOT acceptable.
+
+## Recovery: stray commit on main
+- If a commit accidentally lands on `main` instead of the feature branch — do NOT `git reset --hard`
+- Instead: make any remaining pending commits on `main`, then `git checkout <feature-branch>` and `git merge main`

@@ -134,9 +134,9 @@ Each task gets its own branch from `main`, following the strict git-workflow rul
 - [x] Verify no data corruption
 
 ### Task 4.3 — Health Endpoint
-- [ ] **Branch:** `feat/task-4.3-health`
-- [ ] Write failing test first
-- [ ] `GET /health` — queries DB (`SELECT 1`) and returns `{ status: "ok" }` or 503
+- [x] **Branch:** `feat/task-4.3-health`
+- [x] Write failing test first
+- [x] `GET /health` — queries DB (`SELECT 1`) and returns `{ status: "ok" }` or 503
 
 ---
 
