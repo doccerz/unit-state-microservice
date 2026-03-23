@@ -87,9 +87,9 @@ Each task gets its own branch from `main`, following the strict git-workflow rul
   - `toggle(id)` — `UPDATE ... SET status = NOT status WHERE id=$1`, returns updated row
 
 ### Task 2.4 — Connection Pooling
-- [ ] **Branch:** `feat/task-2.4-connection-pool`
-- [ ] Tune `@fastify/postgres` pool config (max, idleTimeoutMillis)
-- [ ] Ensure pool is available via `fastify.pg` throughout lifecycle
+- [x] **Branch:** `feat/task-2.4-connection-pool`
+- [x] Tune `@fastify/postgres` pool config (max, idleTimeoutMillis)
+- [x] Ensure pool is available via `fastify.pg` throughout lifecycle
 
 ---
 

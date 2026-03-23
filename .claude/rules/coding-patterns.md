@@ -16,3 +16,4 @@
 - Batch INSERT params: build `($1,$2),($3,$4),...` dynamically; each unit uses 2 slots (id, metadata)
 - `metadata` param: pass `JSON.stringify(metadata)` when not null — pg driver does not auto-serialize nested objects from JSONB columns in parameterized queries
 - `atomicUpdate` returns `{ row, rowCount }` — caller checks `rowCount === 0` to return 409
+- `@fastify/postgres` pool options: pass `max` and `idleTimeoutMillis` directly alongside `connectionString` in the plugin opts object; expose via env vars with `type: 'integer'` + `default` in env schema
