@@ -14,4 +14,5 @@
 - Fastify plugin mocks: if a mocked plugin needs to `app.decorate(...)` and have it visible at root scope, wrap the mock with `fastify-plugin`: `vi.mock('pkg', async () => { const fp = (await import('fastify-plugin')).default; return { default: fp(mockFn) } })`
 - Repository unit tests: mock pg as `{ query: vi.fn() }` — no `vi.mock`, no real DB, just pass the mock directly to `createUnitRepository(pg, schema)`
 - Assert SQL shape in repository tests: `pg.query.mock.calls[0][0]` is the SQL string — check for keywords like `ON CONFLICT`, `NOT status`, `COALESCE`
+- Route integration tests: use `app.inject` with mocked `@fastify/postgres` (same `var mockQuery` + `fp()` pattern as `db.test.js`) — `mockQuery.mockResolvedValueOnce({ rows: [...] })` controls repo responses; `mockQuery.mockReset()` in `beforeEach`
 

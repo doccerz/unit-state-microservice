@@ -96,7 +96,7 @@ Each task gets its own branch from `main`, following the strict git-workflow rul
 ## Phase 3: Core Service Implementation
 
 ### Task 3.1 — Unit Management Routes
-- [ ] **Branch:** `feat/task-3.1-unit-management`
+- [x] **Branch:** `feat/task-3.1-unit-management`
 - [ ] Write failing integration tests first
 - [ ] Create `src/routes/units.js`:
   - `POST /units` — create single or batch; respond 201
