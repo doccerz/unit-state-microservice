@@ -73,9 +73,9 @@ Each task gets its own branch from `main`, following the strict git-workflow rul
 - [x] Create `scripts/migrate.js` — runs the SQL file via pg
 
 ### Task 2.2 — Table Definition & DB Plugin
-- [ ] **Branch:** `feat/task-2.2-db-plugin`
-- [ ] Create `src/plugins/db.js` — registers `@fastify/postgres` with `DATABASE_URL`
-- [ ] Verify connection on startup
+- [x] **Branch:** `feat/task-2.2-db-plugin`
+- [x] Create `src/plugins/db.js` — registers `@fastify/postgres` with `DATABASE_URL`
+- [x] Verify connection on startup
 
 ### Task 2.3 — Atomic Update Query
 - [ ] **Branch:** `feat/task-2.3-atomic-query`

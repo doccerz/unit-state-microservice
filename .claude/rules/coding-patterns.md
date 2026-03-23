@@ -10,3 +10,5 @@
 - Swagger config exported from `src/docs/openapi.js` as `swaggerConfig`
 - OpenAPI JSON served at `GET /docs/json`; UI at `GET /docs` (redirects to `/docs/`)
 - `pg` is available as a transitive dep of `@fastify/postgres` — use it directly in scripts that run outside Fastify (e.g. `scripts/migrate.js`)
+- `fastify-plugin` is a transitive dep (via `@fastify/postgres`) — use `fp(plugin)` to wrap custom plugins that need their decorations visible at root scope (e.g. `src/plugins/db.js`)
+- Plugin order in `src/app.js`: swagger → swaggerUi → env → db → routes
