@@ -123,9 +123,9 @@ Each task gets its own branch from `main`, following the strict git-workflow rul
 ## Phase 4: Documentation & Quality Assurance
 
 ### Task 4.1 — Swagger UI
-- [ ] **Branch:** `feat/task-4.1-swagger-ui`
-- [ ] Confirm `/docs` serves interactive UI
-- [ ] Validate all routes appear with request/response schemas
+- [x] **Branch:** `feat/task-4.1-swagger-ui`
+- [x] Confirm `/docs` serves interactive UI
+- [x] Validate all routes appear with request/response schemas
 
 ### Task 4.2 — Concurrency Integration Tests
 - [ ] **Branch:** `feat/task-4.2-concurrency-tests`
