@@ -60,8 +60,8 @@ Each task gets its own branch from `main`, following the strict git-workflow rul
 ## Phase 2: PostgreSQL Persistence Layer
 
 ### Task 2.1 — Database Migration Script
-- [ ] **Branch:** `feat/task-2.1-db-migration`
-- [ ] Create `migrations/001_init.sql`:
+- [x] **Branch:** `feat/task-2.1-db-migration`
+- [x] Create `migrations/001_init.sql`:
   ```sql
   CREATE SCHEMA IF NOT EXISTS "unit-state-service";
   CREATE TABLE IF NOT EXISTS "unit-state-service".units (
@@ -70,7 +70,7 @@ Each task gets its own branch from `main`, following the strict git-workflow rul
     metadata JSONB
   );
   ```
-- [ ] Create `scripts/migrate.js` — runs the SQL file via pg
+- [x] Create `scripts/migrate.js` — runs the SQL file via pg
 
 ### Task 2.2 — Table Definition & DB Plugin
 - [ ] **Branch:** `feat/task-2.2-db-plugin`
