@@ -1,14 +1,25 @@
-import { vi, describe, it, expect, afterEach } from 'vitest'
+import { vi, describe, it, expect, afterEach, beforeEach } from 'vitest'
 import { buildApp } from '../src/app.js'
 
-vi.mock('@fastify/postgres', () => ({
-  default: vi.fn(async function (app) {
-    app.decorate('pg', { query: vi.fn(), connect: vi.fn() })
-  }),
-}))
+// var (not const/let) avoids TDZ when vi.mock factory runs before module init
+var capturedOpts = null
+
+vi.mock('@fastify/postgres', async () => {
+  const fp = (await import('fastify-plugin')).default
+  return {
+    default: fp(async function mockPgPlugin(app, opts) {
+      capturedOpts = opts
+      app.decorate('pg', { query: vi.fn(), connect: vi.fn() })
+    }),
+  }
+})
 
 describe('DB Plugin', () => {
   let app
+
+  beforeEach(() => {
+    capturedOpts = null
+  })
 
   afterEach(async () => {
     await app.close()
@@ -20,14 +31,9 @@ describe('DB Plugin', () => {
     expect(app.pg).toBeDefined()
   })
 
-  it('connects using DATABASE_URL from config', async () => {
-    const { default: fastifyPostgres } = await import('@fastify/postgres')
+  it('passes DATABASE_URL as connectionString to postgres plugin', async () => {
     app = buildApp({ logger: false }, { DATABASE_URL: 'postgres://localhost/testdb' })
     await app.ready()
-    expect(fastifyPostgres).toHaveBeenCalledWith(
-      expect.anything(),
-      expect.objectContaining({ connectionString: 'postgres://localhost/testdb' }),
-      expect.anything()
-    )
+    expect(capturedOpts).toMatchObject({ connectionString: 'postgres://localhost/testdb' })
   })
 })
