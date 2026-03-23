@@ -26,13 +26,13 @@ Each task gets its own branch from `main`, following the strict git-workflow rul
 ## Phase 1: Foundation & API Contract
 
 ### Task 1.1 — Project Initialization
-- [ ] **Branch:** `feat/task-1.1-project-init`
-- [ ] `npm init -y`
-- [ ] Install: `fastify`, `@fastify/env`, `@fastify/postgres`
-- [ ] Install dev: `vitest`, `nodemon`
-- [ ] Create `src/app.js` — bare Fastify instance
-- [ ] Create `src/server.js` — entry point (listen on PORT)
-- [ ] Create `.gitignore`, `.env.example`
+- [x] **Branch:** `feat/task-1.1-project-init`
+- [x] `npm init -y`
+- [x] Install: `fastify`, `@fastify/env`, `@fastify/postgres`
+- [x] Install dev: `vitest`, `nodemon`
+- [x] Create `src/app.js` — bare Fastify instance
+- [x] Create `src/server.js` — entry point (listen on PORT)
+- [x] Create `.gitignore`, `.env.example`
 
 ### Task 1.2 — Environment Configuration
 - [ ] **Branch:** `feat/task-1.2-env-config`
