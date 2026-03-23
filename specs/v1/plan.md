@@ -35,12 +35,12 @@ Each task gets its own branch from `main`, following the strict git-workflow rul
 - [x] Create `.gitignore`, `.env.example`
 
 ### Task 1.2 — Environment Configuration
-- [ ] **Branch:** `feat/task-1.2-env-config`
-- [ ] Create `src/config/env.schema.js` — JSON schema for env vars:
+- [x] **Branch:** `feat/task-1.2-env-config`
+- [x] Create `src/config/env.schema.js` — JSON schema for env vars:
   - `DATABASE_URL` (string, required)
   - `PORT` (integer, default 3000)
-  - `DATABASE_SCHEMA` (string, default `"public"`)
-- [ ] Register `@fastify/env` in `src/app.js` with the schema
+  - `DATABASE_SCHEMA` (string, default `"unit-state-service"`)
+- [x] Register `@fastify/env` in `src/app.js` with the schema
 
 ### Task 1.3 — OpenAPI Specification
 - [ ] **Branch:** `feat/task-1.3-openapi`

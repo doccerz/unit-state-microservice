@@ -13,6 +13,10 @@
 - Routes in `src/routes/`, repos in `src/repositories/`, schemas in `src/schemas/`
 - DB migrations in `migrations/`, runner in `scripts/migrate.js`
 
+## Database Architecture
+- Single shared Postgres instance; each service owns its own schema (e.g. `unit-state-service`)
+- Individual env vars (`DATABASE_HOST/PORT/USER/PASSWORD/NAME`) used by Docker Compose; app consumes `DATABASE_URL`
+
 ## Key Commands
 - `npm start` — run server
 - `npm run dev` — run with nodemon
