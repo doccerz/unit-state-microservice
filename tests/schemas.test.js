@@ -98,7 +98,7 @@ describe('unit schemas — Fastify validation via inject', () => {
     expect(res.statusCode).toBe(200)
   })
 
-  it('POST /test/create rejects additional properties', async () => {
+  it('POST /test/create strips additional properties (Fastify removeAdditional)', async () => {
     buildTestApp()
     await app.ready()
     const res = await app.inject({
@@ -106,7 +106,9 @@ describe('unit schemas — Fastify validation via inject', () => {
       url: '/test/create',
       payload: { unknown: 'field' },
     })
-    expect(res.statusCode).toBe(400)
+    // Fastify removes unknown props rather than rejecting (removeAdditional: true)
+    expect(res.statusCode).toBe(200)
+    expect(JSON.parse(res.payload)).not.toHaveProperty('unknown')
   })
 
   it('PATCH /test/patch accepts { status: true }', async () => {
