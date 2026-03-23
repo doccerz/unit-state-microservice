@@ -12,3 +12,7 @@
 - `pg` is available as a transitive dep of `@fastify/postgres` — use it directly in scripts that run outside Fastify (e.g. `scripts/migrate.js`)
 - `fastify-plugin` is a transitive dep (via `@fastify/postgres`) — use `fp(plugin)` to wrap custom plugins that need their decorations visible at root scope (e.g. `src/plugins/db.js`)
 - Plugin order in `src/app.js`: swagger → swaggerUi → env → db → routes
+- Repository pattern: `createUnitRepository(pg, schema)` factory in `src/repositories/unit.repository.js` — pass `app.pg` and `app.config.DATABASE_SCHEMA` at call site
+- Batch INSERT params: build `($1,$2),($3,$4),...` dynamically; each unit uses 2 slots (id, metadata)
+- `metadata` param: pass `JSON.stringify(metadata)` when not null — pg driver does not auto-serialize nested objects from JSONB columns in parameterized queries
+- `atomicUpdate` returns `{ row, rowCount }` — caller checks `rowCount === 0` to return 409
