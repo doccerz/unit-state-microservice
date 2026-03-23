@@ -1,8 +1,22 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 
 const sqlPath = join(process.cwd(), 'migrations', '001_init.sql')
+
+const mockConnect = vi.fn()
+const mockQuery = vi.fn()
+const mockEnd = vi.fn()
+
+vi.mock('pg', () => ({
+  default: {
+    Client: vi.fn(function () {
+      this.connect = mockConnect
+      this.query = mockQuery
+      this.end = mockEnd
+    }),
+  },
+}))
 
 describe('migrations/001_init.sql', () => {
   it('contains CREATE SCHEMA IF NOT EXISTS', async () => {
@@ -33,28 +47,19 @@ describe('migrations/001_init.sql', () => {
 })
 
 describe('scripts/migrate.js', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+    mockQuery.mockResolvedValue({ rows: [] })
+    mockConnect.mockResolvedValue(undefined)
+    mockEnd.mockResolvedValue(undefined)
+  })
+
   it('exports a migrate function', async () => {
     const mod = await import('../scripts/migrate.js')
     expect(typeof mod.migrate).toBe('function')
   })
 
   it('migrate connects, queries, and ends the pg client', async () => {
-    const mockEnd = vi.fn().mockResolvedValue(undefined)
-    const mockQuery = vi.fn().mockResolvedValue({ rows: [] })
-    const mockConnect = vi.fn().mockResolvedValue(undefined)
-
-    vi.mock('pg', () => {
-      return {
-        default: {
-          Client: vi.fn().mockImplementation(() => ({
-            connect: mockConnect,
-            query: mockQuery,
-            end: mockEnd,
-          })),
-        },
-      }
-    })
-
     const { migrate } = await import('../scripts/migrate.js')
     await migrate('postgres://mock/testdb')
 
