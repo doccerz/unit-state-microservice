@@ -143,19 +143,19 @@ Each task gets its own branch from `main`, following the strict git-workflow rul
 ## Phase 5: Containerization
 
 ### Task 5.1 — Dockerfile
-- [ ] **Branch:** `feat/task-5.1-dockerfile`
-- [ ] Multi-stage: `node:20-alpine` builder → slim production image
-- [ ] Expose PORT, run `node src/server.js`
+- [x] **Branch:** `feat/task-5.1-dockerfile`
+- [x] Multi-stage: `node:20-alpine` builder → slim production image
+- [x] Expose PORT, run `node src/server.js`
 
 ### Task 5.2 — Docker Compose
-- [ ] **Branch:** `feat/task-5.2-docker-compose`
-- [ ] `docker-compose.yml` with `postgres:16-alpine` + `app` services
-- [ ] App depends_on postgres, runs migrations then starts server
+- [x] **Branch:** `feat/task-5.2-docker-compose`
+- [x] `docker-compose.yml` with `postgres:16-alpine` + `app` services
+- [x] App depends_on postgres, runs migrations then starts server
 
 ### Task 5.3 — Persistence & Volumes
-- [ ] **Branch:** `feat/task-5.3-volumes`
-- [ ] Map named volume for PostgreSQL data directory
-- [ ] Verify data survives `docker compose down` + `up`
+- [x] **Branch:** `feat/task-5.3-volumes`
+- [x] Map named volume for PostgreSQL data directory
+- [x] Verify data survives `docker compose down` + `up`
 
 ---
 

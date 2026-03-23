@@ -4,7 +4,7 @@
 
 - Do `git add` and `git commit` after every meaningful change (e.g., after writing tests, after implementing code, after fixing tests). Do NOT batch all work into a single commit at the end.
 - Don't push directly to main
-- **CRITICAL**: Always create a NEW branch for EACH task (e.g., `feat/task-1.4-seed-script`). Never add commits for a new task onto an existing task's branch. Create the branch from `main` before starting any work.
+- **CRITICAL**: Always create a NEW branch for EACH plan execution (e.g., `feat/task-1.4-seed-script`). Create the branch from `main` before starting any work.
 - Once task is completed, push the branch and create a PR to main
 - Commit messages should be descriptive and follow conventional commit style
 
@@ -17,8 +17,9 @@
 Every task MUST follow this exact workflow in order. Do NOT skip steps.
 
 1. **Update codebase** - checkout main and pull
-2. **Create a NEW branch from `main`** — e.g., `feat/task-X.Y-description`. Never reuse another task's branch.
+2. **Create a NEW branch from `main`** — e.g., `feat/task-X.Y-description`. Never reuse another execution's branch.
 3. **Write failing tests FIRST** — before writing any implementation code
+   - Exception: pure infrastructure files (Dockerfile, docker-compose.yml) have no vitest tests — commit immediately after creation
 4. **Git commit** the failing tests
 5. **Implement the code** to make the tests pass
 6. **Git commit** the implementation
@@ -49,3 +50,7 @@ graph TD
 ## Recovery: stray commit on main
 - If a commit accidentally lands on `main` instead of the feature branch — do NOT `git reset --hard`
 - Instead: make any remaining pending commits on `main`, then `git checkout <feature-branch>` and `git merge main`
+
+## Recovery: stray uncommitted change on main when switching branches
+- If main has an unstaged edit that blocks checkout — use `git stash && git checkout <branch> && git stash pop`
+- Apply the same stash/pop when returning to main between tasks
