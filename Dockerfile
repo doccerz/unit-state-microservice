@@ -1,9 +1,9 @@
-FROM node:20-alpine AS deps
+FROM node:25.7-slim AS deps
 WORKDIR /app
-COPY package*.json ./
-RUN npm ci --omit=dev
+COPY package.json ./
+RUN npm install --omit=dev
 
-FROM node:20-alpine AS production
+FROM node:25.7-slim AS production
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY src/ ./src/

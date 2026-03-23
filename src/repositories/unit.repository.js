@@ -1,10 +1,12 @@
+import { randomUUID } from 'crypto'
+
 export function createUnitRepository(pg, schema = 'unit-state-service') {
   const table = `"${schema}".units`
 
   async function create(units) {
     const values = []
     const params = []
-    units.forEach(({ id, metadata = null }, i) => {
+    units.forEach(({ id = randomUUID(), metadata = null }, i) => {
       const base = i * 2
       values.push(`($${base + 1}, $${base + 2})`)
       params.push(id, metadata != null ? JSON.stringify(metadata) : null)
