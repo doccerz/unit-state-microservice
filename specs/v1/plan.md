@@ -43,9 +43,9 @@ Each task gets its own branch from `main`, following the strict git-workflow rul
 - [x] Register `@fastify/env` in `src/app.js` with the schema
 
 ### Task 1.3 — OpenAPI Specification
-- [ ] **Branch:** `feat/task-1.3-openapi`
-- [ ] Create `src/docs/openapi.yaml` covering all endpoints
-- [ ] Register `@fastify/swagger` + `@fastify/swagger-ui` in app (served at `/docs`)
+- [x] **Branch:** `feat/task-1.3-openapi`
+- [x] Create `src/docs/openapi.yaml` covering all endpoints
+- [x] Register `@fastify/swagger` + `@fastify/swagger-ui` in app (served at `/docs`)
 
 ### Task 1.4 — Schema Validation
 - [ ] **Branch:** `feat/task-1.4-schema-validation`
