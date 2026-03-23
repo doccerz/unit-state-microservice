@@ -3,7 +3,9 @@
 - Framework: `vitest` (`npm test` = `vitest run`)
 - Tests live in `tests/` directory
 - Import `buildApp` from `src/app.js` directly — no test server startup needed for unit tests
-- Integration tests start the full app and hit real DB (for concurrency tests in task 4.2)
+- Integration tests that hit real DB: start full app with no envData override — `DATABASE_URL` from `process.env` is used automatically
+- Real-DB test cleanup: always DELETE test data before `app.close()` to avoid cross-test pollution in a live DB
+- Concurrency guarantee is at the DB layer (`UPDATE ... WHERE status != $2`) — no app-level locking needed; concurrency tests verify behavior, not implement it
 - Follow test-first: write failing tests → commit → implement → run → commit
 - Always `await app.close()` after each test to release resources
 - Env injection in tests: `buildApp({ logger: false }, { DATABASE_URL: 'postgres://localhost/test' })` — call `await app.ready()` to trigger plugin init
