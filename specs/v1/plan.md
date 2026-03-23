@@ -182,14 +182,14 @@ Each task gets its own branch from `main`, following the strict git-workflow rul
 
 ## Verification
 
-- [ ] `npm run migrate` → table created in PostgreSQL
-- [ ] `npm start` → server starts on PORT 3000
-- [ ] `curl POST /units` → 201 with UUID
-- [ ] `curl GET /units/:id` → 200 with unit
-- [ ] `curl PATCH /units/:id { status: true }` → 200; repeat → 409
-- [ ] `curl POST /units/:id/toggle` → inverts status
-- [ ] `curl DELETE /units/:id` → 200; repeat → 404
-- [ ] `GET /docs` → Swagger UI renders all endpoints
-- [ ] `GET /health` → `{ status: "ok" }`
-- [ ] `npm test` → all integration tests pass including concurrency
-- [ ] `docker compose up` → service + DB start, migrations run automatically
+- [x] `npm run migrate` → table created in PostgreSQL
+- [x] `npm start` → server starts on PORT 3000
+- [x] `curl POST /units` → 201 with UUID
+- [x] `curl GET /units/:id` → 200 with unit
+- [x] `curl PATCH /units/:id { status: true }` → 200; repeat → 409
+- [x] `curl POST /units/:id/toggle` → inverts status
+- [x] `curl DELETE /units/:id` → 200; repeat → 404
+- [x] `GET /docs` → Swagger UI renders all endpoints
+- [x] `GET /health` → `{ status: "ok" }`
+- [x] `npm test` → all integration tests pass including concurrency
+- [x] `docker compose up` → service + DB start, migrations run automatically
