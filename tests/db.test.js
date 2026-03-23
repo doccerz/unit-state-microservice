@@ -36,4 +36,16 @@ describe('DB Plugin', () => {
     await app.ready()
     expect(capturedOpts).toMatchObject({ connectionString: 'postgres://localhost/testdb' })
   })
+
+  it('passes default pool config (max=10, idleTimeoutMillis=10000) when not set', async () => {
+    app = buildApp({ logger: false }, { DATABASE_URL: 'postgres://localhost/test' })
+    await app.ready()
+    expect(capturedOpts).toMatchObject({ max: 10, idleTimeoutMillis: 10000 })
+  })
+
+  it('passes custom pool config from env vars', async () => {
+    app = buildApp({ logger: false }, { DATABASE_URL: 'postgres://localhost/test', DATABASE_POOL_MAX: 20, DATABASE_IDLE_TIMEOUT: 5000 })
+    await app.ready()
+    expect(capturedOpts).toMatchObject({ max: 20, idleTimeoutMillis: 5000 })
+  })
 })
