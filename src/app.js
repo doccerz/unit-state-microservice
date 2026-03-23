@@ -5,6 +5,7 @@ import swaggerUi from '@fastify/swagger-ui'
 import { envSchema } from './config/env.schema.js'
 import { swaggerConfig } from './docs/openapi.js'
 import dbPlugin from './plugins/db.js'
+import unitsRoutes from './routes/units.js'
 
 export function buildApp(opts = {}, envData = null) {
   const app = Fastify(opts)
@@ -19,6 +20,7 @@ export function buildApp(opts = {}, envData = null) {
   })
 
   app.register(dbPlugin)
+  app.register(unitsRoutes)
 
   return app
 }
