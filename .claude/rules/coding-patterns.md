@@ -19,3 +19,5 @@
 - Route plugins (`src/routes/*.js`): plain async Fastify plugins — no `fp()` wrapper needed since they only register handlers, not decorations
 - `POST /units` shape mirroring: single object body → single object response; array body → array response — use `Array.isArray(req.body)` to branch
 - Repository instantiated at plugin registration: call `createUnitRepository(app.pg, app.config.DATABASE_SCHEMA)` at the top of a route plugin — `app.pg` and `app.config` are available because `dbPlugin`/`env` register before routes
+- Response schemas with JSONB fields: add `additionalProperties: true` to `{ type: 'object' }` — without it `fast-json-stringify` strips all nested properties silently
+- `atomicUpdate` 404 vs 409: when `rowCount === 0`, call `findById` to disambiguate — zero rowCount means either missing (404) or already in target state (409)

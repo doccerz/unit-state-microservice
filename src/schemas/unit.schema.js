@@ -42,6 +42,6 @@ export const unitResponse = {
   properties: {
     id: { type: 'string', format: 'uuid' },
     status: { type: 'boolean' },
-    metadata: { type: 'object', nullable: true },
+    metadata: { type: 'object', nullable: true, additionalProperties: true },
   },
 }

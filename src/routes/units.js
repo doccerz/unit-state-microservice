@@ -1,5 +1,5 @@
 import { createUnitRepository } from '../repositories/unit.repository.js'
-import { createUnitBody, unitParams, unitResponse } from '../schemas/unit.schema.js'
+import { createUnitBody, patchUnitBody, unitParams, unitResponse } from '../schemas/unit.schema.js'
 
 async function unitsRoutes(app) {
   const repo = createUnitRepository(app.pg, app.config.DATABASE_SCHEMA)
@@ -39,6 +39,44 @@ async function unitsRoutes(app) {
     const deleted = await repo.deleteById(req.params.id)
     if (!deleted) return reply.code(404).send({ message: 'Unit not found' })
     return deleted
+  })
+
+  app.patch('/units/:id', {
+    schema: {
+      params: unitParams,
+      body: patchUnitBody,
+      response: { 200: unitResponse },
+      tags: ['units'],
+    },
+  }, async (req, reply) => {
+    const { id } = req.params
+    const { status, metadata } = req.body
+
+    if (status === undefined) {
+      const unit = await repo.patchMetadata(id, metadata)
+      if (!unit) return reply.code(404).send({ message: 'Unit not found' })
+      return unit
+    }
+
+    const { row, rowCount } = await repo.atomicUpdate(id, status, metadata ?? null)
+    if (rowCount === 0) {
+      const exists = await repo.findById(id)
+      if (!exists) return reply.code(404).send({ message: 'Unit not found' })
+      return reply.code(409).send({ message: 'Unit already in target state' })
+    }
+    return row
+  })
+
+  app.post('/units/:id/toggle', {
+    schema: {
+      params: unitParams,
+      response: { 200: unitResponse },
+      tags: ['units'],
+    },
+  }, async (req, reply) => {
+    const unit = await repo.toggle(req.params.id)
+    if (!unit) return reply.code(404).send({ message: 'Unit not found' })
+    return unit
   })
 }
 
