@@ -113,10 +113,10 @@ Each task gets its own branch from `main`, following the strict git-workflow rul
 - [x] Wire atomic query from Task 2.3
 
 ### Task 3.3 — Conflict Management
-- [ ] **Branch:** `feat/task-3.3-conflict-management`
-- [ ] Write failing test for 409 scenario first
-- [ ] Ensure `atomicUpdate` returns `409` when `rowCount === 0`
-- [ ] Centralize error handling in `src/plugins/error-handler.js`
+- [x] **Branch:** `feat/task-3.3-conflict-management`
+- [x] Write failing test for 409 scenario first
+- [x] Ensure `atomicUpdate` returns `409` when `rowCount === 0`
+- [x] Centralize error handling in `src/plugins/error-handler.js`
 
 ---
 
