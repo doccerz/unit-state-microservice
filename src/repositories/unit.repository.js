@@ -38,5 +38,13 @@ export function createUnitRepository(pg, schema = 'unit-state-service') {
     return rows[0] ?? null
   }
 
-  return { create, findById, deleteById, atomicUpdate, toggle }
+  async function patchMetadata(id, metadata) {
+    const { rows } = await pg.query(
+      `UPDATE ${table} SET metadata = $2 WHERE id = $1 RETURNING *`,
+      [id, metadata != null ? JSON.stringify(metadata) : null]
+    )
+    return rows[0] ?? null
+  }
+
+  return { create, findById, deleteById, atomicUpdate, toggle, patchMetadata }
 }
