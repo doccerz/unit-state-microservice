@@ -138,4 +138,129 @@ describe('Unit Routes', () => {
       expect(res.statusCode).toBe(400)
     })
   })
+
+  describe('PATCH /units/:id', () => {
+    it('returns 200 with updated unit when status changes', async () => {
+      await app.ready()
+      const unit = { id: VALID_UUID, status: true, metadata: null }
+      mockQuery.mockResolvedValueOnce({ rows: [unit], rowCount: 1 })
+
+      const res = await app.inject({
+        method: 'PATCH',
+        url: `/units/${VALID_UUID}`,
+        payload: { status: true },
+      })
+
+      expect(res.statusCode).toBe(200)
+      expect(JSON.parse(res.payload)).toEqual(unit)
+    })
+
+    it('returns 409 when unit is already in target state', async () => {
+      await app.ready()
+      const unit = { id: VALID_UUID, status: false, metadata: null }
+      mockQuery.mockResolvedValueOnce({ rows: [], rowCount: 0 })
+      mockQuery.mockResolvedValueOnce({ rows: [unit] })
+
+      const res = await app.inject({
+        method: 'PATCH',
+        url: `/units/${VALID_UUID}`,
+        payload: { status: false },
+      })
+
+      expect(res.statusCode).toBe(409)
+    })
+
+    it('returns 404 when unit does not exist', async () => {
+      await app.ready()
+      mockQuery.mockResolvedValueOnce({ rows: [], rowCount: 0 })
+      mockQuery.mockResolvedValueOnce({ rows: [] })
+
+      const res = await app.inject({
+        method: 'PATCH',
+        url: `/units/${VALID_UUID}`,
+        payload: { status: true },
+      })
+
+      expect(res.statusCode).toBe(404)
+    })
+
+    it('returns 200 when only metadata is updated', async () => {
+      await app.ready()
+      const unit = { id: VALID_UUID, status: false, metadata: { key: 'value' } }
+      mockQuery.mockResolvedValueOnce({ rows: [unit] })
+
+      const res = await app.inject({
+        method: 'PATCH',
+        url: `/units/${VALID_UUID}`,
+        payload: { metadata: { key: 'value' } },
+      })
+
+      expect(res.statusCode).toBe(200)
+      expect(JSON.parse(res.payload)).toEqual(unit)
+    })
+
+    it('returns 404 when metadata-only update targets missing unit', async () => {
+      await app.ready()
+      mockQuery.mockResolvedValueOnce({ rows: [] })
+
+      const res = await app.inject({
+        method: 'PATCH',
+        url: `/units/${VALID_UUID}`,
+        payload: { metadata: { key: 'value' } },
+      })
+
+      expect(res.statusCode).toBe(404)
+    })
+
+    it('returns 400 for empty body', async () => {
+      await app.ready()
+      const res = await app.inject({
+        method: 'PATCH',
+        url: `/units/${VALID_UUID}`,
+        payload: {},
+      })
+
+      expect(res.statusCode).toBe(400)
+    })
+
+    it('returns 400 for non-UUID id param', async () => {
+      await app.ready()
+      const res = await app.inject({
+        method: 'PATCH',
+        url: '/units/not-a-uuid',
+        payload: { status: true },
+      })
+
+      expect(res.statusCode).toBe(400)
+    })
+  })
+
+  describe('POST /units/:id/toggle', () => {
+    it('returns 200 with toggled unit', async () => {
+      await app.ready()
+      const unit = { id: VALID_UUID, status: true, metadata: null }
+      mockQuery.mockResolvedValueOnce({ rows: [unit] })
+
+      const res = await app.inject({ method: 'POST', url: `/units/${VALID_UUID}/toggle` })
+
+      expect(res.statusCode).toBe(200)
+      expect(JSON.parse(res.payload)).toEqual(unit)
+    })
+
+    it('returns 404 when unit not found', async () => {
+      await app.ready()
+      mockQuery.mockResolvedValueOnce({ rows: [] })
+
+      const res = await app.inject({ method: 'POST', url: `/units/${VALID_UUID}/toggle` })
+
+      expect(res.statusCode).toBe(404)
+    })
+
+    it('returns 400 for non-UUID id param', async () => {
+      await app.ready()
+      const res = await app.inject({ method: 'POST', url: '/units/not-a-uuid/toggle' })
+
+      expect(res.statusCode).toBe(400)
+    })
+  })
 })
