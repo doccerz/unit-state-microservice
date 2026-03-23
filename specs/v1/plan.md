@@ -96,13 +96,13 @@ Each task gets its own branch from `main`, following the strict git-workflow rul
 ## Phase 3: Core Service Implementation
 
 ### Task 3.1 — Unit Management Routes
-- [ ] **Branch:** `feat/task-3.1-unit-management`
-- [ ] Write failing integration tests first
-- [ ] Create `src/routes/units.js`:
+- [x] **Branch:** `feat/task-3.1-unit-management`
+- [x] Write failing integration tests first
+- [x] Create `src/routes/units.js`:
   - `POST /units` — create single or batch; respond 201
   - `GET /units/:id` — return unit or 404
   - `DELETE /units/:id` — remove or 404
-- [ ] Wire schemas from Task 1.4
+- [x] Wire schemas from Task 1.4
 
 ### Task 3.2 — State Control Routes
 - [ ] **Branch:** `feat/task-3.2-state-control`
