@@ -1,8 +1,18 @@
 import { createUnitRepository } from '../repositories/unit.repository.js'
-import { createUnitBody, patchUnitBody, unitParams, unitResponse } from '../schemas/unit.schema.js'
+import { createUnitBody, listUnitsQuery, patchUnitBody, unitParams, unitResponse } from '../schemas/unit.schema.js'
 
 async function unitsRoutes(app) {
   const repo = createUnitRepository(app.pg, app.config.DATABASE_SCHEMA)
+
+  app.get('/units', {
+    schema: {
+      querystring: listUnitsQuery,
+      response: { 200: { type: 'array', items: unitResponse } },
+      tags: ['units'],
+    },
+  }, async (req) => {
+    return repo.findByStatus(req.query.status)
+  })
 
   app.post('/units', {
     schema: {

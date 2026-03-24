@@ -20,4 +20,5 @@
 - Concurrency tests: use `Promise.all` with multiple `app.inject` calls — Fastify inject supports concurrent in-process requests, no `app.listen()` needed
 - Real-DB integration test guard: `it.skipIf(!process.env.DATABASE_URL)(...)` — skips tests requiring a live DB when env var is absent (avoids CI failures)
 - Swagger path coverage tests: parse `GET /docs/json`, assert `Object.keys(body.paths)` contains expected paths; assert HTTP method keys (e.g. `body.paths['/units/{id}']` has `get`, `patch`, `delete`)
+- docs.test.js HTTP method assertions: when adding a new method to an existing path (e.g. `GET /units`), add the assertion to the existing "HTTP methods" test block — don't create a new `it` block
 

@@ -48,5 +48,10 @@ export function createUnitRepository(pg, schema = 'unit-state-service') {
     return rows[0] ?? null
   }
 
-  return { create, findById, deleteById, atomicUpdate, toggle, patchMetadata }
+  async function findByStatus(status) {
+    const { rows } = await pg.query(`SELECT * FROM ${table} WHERE status = $1`, [status])
+    return rows
+  }
+
+  return { create, findById, deleteById, atomicUpdate, toggle, patchMetadata, findByStatus }
 }

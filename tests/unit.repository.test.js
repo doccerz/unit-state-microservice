@@ -110,6 +110,32 @@ describe('createUnitRepository', () => {
     })
   })
 
+  describe('findByStatus', () => {
+    it('returns rows matching the given status', async () => {
+      const rows = [
+        { id: 'abc-123', status: true, metadata: null },
+        { id: 'def-456', status: true, metadata: { x: 1 } },
+      ]
+      pg.query.mockResolvedValueOnce({ rows })
+
+      const result = await repo.findByStatus(true)
+
+      expect(pg.query).toHaveBeenCalledOnce()
+      const [sql, params] = pg.query.mock.calls[0]
+      expect(sql).toMatch(/WHERE\s+status\s*=\s*\$1/i)
+      expect(params).toEqual([true])
+      expect(result).toEqual(rows)
+    })
+
+    it('returns empty array when no units match', async () => {
+      pg.query.mockResolvedValueOnce({ rows: [] })
+
+      const result = await repo.findByStatus(true)
+
+      expect(result).toEqual([])
+    })
+  })
+
   describe('toggle', () => {
     it('returns the updated row after toggling status', async () => {
       const row = { id: 'abc-123', status: true, metadata: null }
