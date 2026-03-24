@@ -48,6 +48,7 @@ describe('OpenAPI docs', () => {
     const res = await app.inject({ method: 'GET', url: '/docs/json' })
     const body = JSON.parse(res.payload)
 
+    expect(body.paths['/units']).toHaveProperty('get')
     expect(body.paths['/units']).toHaveProperty('post')
     expect(body.paths['/units/{id}']).toHaveProperty('get')
     expect(body.paths['/units/{id}']).toHaveProperty('patch')

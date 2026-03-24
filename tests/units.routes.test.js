@@ -27,6 +27,38 @@ describe('Unit Routes', () => {
     await app.close()
   })
 
+  describe('GET /units', () => {
+    it('returns 200 with array of units when status=true', async () => {
+      await app.ready()
+      const units = [
+        { id: VALID_UUID, status: true, metadata: null },
+      ]
+      mockQuery.mockResolvedValueOnce({ rows: units })
+
+      const res = await app.inject({ method: 'GET', url: '/units?status=true' })
+
+      expect(res.statusCode).toBe(200)
+      expect(JSON.parse(res.payload)).toEqual(units)
+    })
+
+    it('returns 200 with empty array when no units match', async () => {
+      await app.ready()
+      mockQuery.mockResolvedValueOnce({ rows: [] })
+
+      const res = await app.inject({ method: 'GET', url: '/units?status=true' })
+
+      expect(res.statusCode).toBe(200)
+      expect(JSON.parse(res.payload)).toEqual([])
+    })
+
+    it('returns 400 when status query param is missing', async () => {
+      await app.ready()
+      const res = await app.inject({ method: 'GET', url: '/units' })
+
+      expect(res.statusCode).toBe(400)
+    })
+  })
+
   describe('POST /units', () => {
     it('returns 201 with a single unit when body is an object', async () => {
       await app.ready()
