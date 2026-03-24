@@ -33,6 +33,7 @@
 
 ## API Endpoints
 - `POST /units` — create unit(s)
+- `GET /units?status=<bool>` — list units by status (status param required)
 - `GET /units/:id` — fetch unit
 - `PATCH /units/:id` — atomic state update (409 if already in target state)
 - `POST /units/:id/toggle` — invert status
