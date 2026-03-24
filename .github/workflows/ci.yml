@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - main
+      - staging
 
 concurrency:
   group: ci-${{ github.event.pull_request.number }}
@@ -18,16 +19,18 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: '22'
+          node-version: '24'
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install --no-package-lock
+        env:
+          NPM_CONFIG_REGISTRY: https://registry.npmjs.org
 
       - name: Run tests
         run: npm test
@@ -42,7 +45,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Build Docker image (no push)
         uses: docker/build-push-action@v6
@@ -51,10 +54,10 @@ jobs:
           push: false
 
   auto-merge:
-    name: Auto-approve and merge (staging → main only)
+    name: Auto-approve and merge (to staging only)
     needs: [test, docker-build]
     runs-on: ubuntu-latest
-    if: github.event.pull_request.head.ref == 'staging'
+    if: github.base_ref == 'staging'
     permissions:
       contents: write
       pull-requests: write
@@ -65,15 +68,15 @@ jobs:
           gh pr review "${{ github.event.pull_request.number }}" \
             --repo "${{ github.repository }}" \
             --approve \
-            --body "CI passed (tests + Docker build). Auto-approving staging → main."
+            --body "CI passed (tests + Docker build). Auto-approving to staging."
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Enable auto-merge (squash)
+      - name: Enable auto-merge
         run: |
           gh pr merge "${{ github.event.pull_request.number }}" \
             --repo "${{ github.repository }}" \
-            --squash \
+            --merge \
             --auto \
             --delete-branch=false
         env:
