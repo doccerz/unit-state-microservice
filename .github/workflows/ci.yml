@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - main
+      - staging
 
 concurrency:
   group: ci-${{ github.event.pull_request.number }}
@@ -56,7 +57,7 @@ jobs:
     name: Auto-approve and merge (staging → main only)
     needs: [test, docker-build]
     runs-on: ubuntu-latest
-    if: github.event.pull_request.head.ref == 'staging'
+    if: github.base_ref == 'staging' || github.base_ref == 'main'
     permissions:
       contents: write
       pull-requests: write
