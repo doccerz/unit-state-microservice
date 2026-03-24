@@ -10,7 +10,7 @@
 - OpenAPI JSON served at `GET /docs/json`; UI at `GET /docs` (redirects to `/docs/`)
 - `pg` is available as a transitive dep of `@fastify/postgres` — use it directly in scripts that run outside Fastify (e.g. `scripts/migrate.js`)
 - `pg` peer dep caveat: `pg` is declared as a peer dep by `@fastify/postgres` — always add `pg` as a **direct** dep in `package.json`; without it `npm ci --omit=dev` creates an empty `node_modules/pg/` dir and the app crashes
-- Dockerfile base image: `node:25.7-slim`
+- Dockerfile base image: `node:24-slim`
 - Dockerfile deps stage: `COPY package.json ./` only (no glob) — the lockfile resolves all packages from `127.0.0.1:4506` (local Verdaccio proxy) which is unreachable during Docker build; including it causes npm to crash with `Exit handler never called!`
 - `npm ci` vs `npm install`: `npm ci` uses exact `resolved` URLs from `package-lock.json` — `NPM_CONFIG_REGISTRY` env var does NOT override them; use `npm install` in CI and Dockerfile (with `NPM_CONFIG_REGISTRY=https://registry.npmjs.org` in CI) so each environment uses its own registry config
 - Repository `create()`: default `id = randomUUID()` (from `node:crypto`) — omitting `id` in `POST /units` sends `undefined` to the DB UUID column and causes a 500
