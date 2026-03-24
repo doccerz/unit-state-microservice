@@ -54,10 +54,10 @@ jobs:
           push: false
 
   auto-merge:
-    name: Auto-approve and merge (staging → main only)
+    name: Auto-approve and merge (to staging only)
     needs: [test, docker-build]
     runs-on: ubuntu-latest
-    if: github.base_ref == 'staging' || github.base_ref == 'main'
+    if: github.base_ref == 'staging'
     permissions:
       contents: write
       pull-requests: write
@@ -68,7 +68,7 @@ jobs:
           gh pr review "${{ github.event.pull_request.number }}" \
             --repo "${{ github.repository }}" \
             --approve \
-            --body "CI passed (tests + Docker build). Auto-approving staging → main."
+            --body "CI passed (tests + Docker build). Auto-approving to staging."
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
