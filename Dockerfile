@@ -1,9 +1,9 @@
-FROM node:25.7-slim AS deps
+FROM node:24-slim AS deps
 WORKDIR /app
 COPY package.json ./
 RUN npm install --omit=dev
 
-FROM node:25.7-slim AS production
+FROM node:24-slim AS production
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY src/ ./src/
