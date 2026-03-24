@@ -28,7 +28,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --no-package-lock
         env:
           NPM_CONFIG_REGISTRY: https://registry.npmjs.org
 
