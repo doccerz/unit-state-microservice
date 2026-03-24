@@ -36,6 +36,15 @@ export const unitParams = {
   },
 }
 
+export const listUnitsQuery = {
+  type: 'object',
+  required: ['status'],
+  properties: {
+    status: { type: 'boolean' },
+  },
+  additionalProperties: false,
+}
+
 export const unitResponse = {
   type: 'object',
   required: ['id', 'status'],
