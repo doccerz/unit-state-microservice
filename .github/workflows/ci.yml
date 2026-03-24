@@ -24,11 +24,11 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: '22'
+          node-version: '24'
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install --no-package-lock
         env:
           NPM_CONFIG_REGISTRY: https://registry.npmjs.org
 
@@ -72,11 +72,11 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Enable auto-merge (squash)
+      - name: Enable auto-merge
         run: |
           gh pr merge "${{ github.event.pull_request.number }}" \
             --repo "${{ github.repository }}" \
-            --squash \
+            --merge \
             --auto \
             --delete-branch=false
         env:

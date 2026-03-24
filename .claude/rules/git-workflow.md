@@ -47,6 +47,9 @@ graph TD
 
 **Violations**: Skipping the test-first step, reusing another task's branch, writing all code without intermediate commits, skipping the task status update, or pushing directly to main are NOT acceptable.
 
+## PR merge strategy
+- PRs to `staging`: use `--merge` (not `--squash` or `--rebase`) in `gh pr merge` / CI auto-merge
+
 ## Recovery: stray commit on staging
 - If a commit accidentally lands on `staging` instead of the feature branch — do NOT `git reset --hard`
 - Instead: make any remaining pending commits on `staging`, then `git checkout <feature-branch>` and `git merge staging`
