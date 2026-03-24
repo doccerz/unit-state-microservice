@@ -22,6 +22,14 @@
 - `npm run dev` — run with nodemon
 - `npm test` — run vitest integration tests
 - `npm run migrate` — run DB migration script (task 2.1+)
+- `docker pull ghcr.io/doccerz/unit-state-microservice:latest` — pull published image
+
+## CI/CD
+- GitHub Actions: `.github/workflows/docker-publish.yml`
+- Triggers: push to `main` → publishes `latest` tag; push `v*.*.*` git tag → publishes semver tags
+- Registry: ghcr.io (authenticates with `GITHUB_TOKEN` — no manual secret needed)
+- PR builds: image is built but not pushed (smoke-tests the Dockerfile)
+- Example Compose file for consuming the published image: `docker-compose.example.yml`
 
 ## API Endpoints
 - `POST /units` — create unit(s)
